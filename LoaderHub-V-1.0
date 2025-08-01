@@ -1,1 +1,747 @@
-loadstring(game:HttpGet("https://pastefy.app/y3ytyXqt/raw"))()
+--// KEY SYSTEM
+local validKeys = { "RAUSENIADEPTRAI2025" }
+local CoreGui = game:GetService("CoreGui")
+
+local keyGui = Instance.new("ScreenGui", CoreGui)
+keyGui.Name = "KeySystemRAUSENIA"
+keyGui.IgnoreGuiInset = true
+keyGui.ResetOnSpawn = false
+
+local frame = Instance.new("Frame", keyGui)
+frame.Size = UDim2.new(0, 400, 0, 200)
+frame.Position = UDim2.new(0.5, -200, 0.5, -100)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
+frame.BorderSizePixel = 0
+
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 12)
+
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1, 0, 0, 40)
+title.BackgroundTransparency = 1
+title.Text = "🔐 ENTER KEY TO ACCESS RAUSENIA HUB"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Font = Enum.Font.GothamBold
+title.TextScaled = true
+
+local input = Instance.new("TextBox", frame)
+input.Size = UDim2.new(0.9, 0, 0, 40)
+input.Position = UDim2.new(0.05, 0, 0, 70)
+input.PlaceholderText = "Nhập key ở đây..."
+input.Text = ""
+input.Font = Enum.Font.Gotham
+input.TextScaled = true
+input.TextColor3 = Color3.new(1, 1, 1)
+input.BackgroundColor3 = Color3.fromRGB(40, 40, 45)
+input.BorderSizePixel = 0
+
+local checkButton = Instance.new("TextButton", frame)
+checkButton.Size = UDim2.new(0.9, 0, 0, 40)
+checkButton.Position = UDim2.new(0.05, 0, 0, 130)
+checkButton.Text = "✅ CHECK KEY"
+checkButton.Font = Enum.Font.GothamBold
+checkButton.TextScaled = true
+checkButton.TextColor3 = Color3.new(1, 1, 1)
+checkButton.BackgroundColor3 = Color3.fromRGB(50, 150, 50)
+checkButton.BorderSizePixel = 0
+
+checkButton.MouseButton1Click:Connect(function()
+	local key = input.Text
+	if table.find(validKeys, key) then
+		checkButton.Text = "✅ SUCCESS"
+		wait(1)
+		keyGui:Destroy()
+
+		--// CINEMATIC INTRO: RAUSENIA HUB
+		local TweenService = game:GetService("TweenService")
+		local Lighting = game:GetService("Lighting")
+
+		local blur = Instance.new("BlurEffect", Lighting)
+		blur.Size = 0
+		TweenService:Create(blur, TweenInfo.new(1), {Size = 30}):Play()
+
+		local gui = Instance.new("ScreenGui", CoreGui)
+		gui.Name = "RauseniaIntro"
+		gui.IgnoreGuiInset = true
+		gui.ResetOnSpawn = false
+
+		local bg = Instance.new("Frame", gui)
+		bg.Size = UDim2.new(1, 0, 1, 0)
+		bg.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+
+		local logo = Instance.new("TextLabel", bg)
+		logo.Size = UDim2.new(0, 0, 0, 0)
+		logo.Position = UDim2.new(0.5, -200, 0.5, -100)
+		logo.BackgroundTransparency = 1
+		logo.Text = "RAUSENIA HUB"
+		logo.TextColor3 = Color3.new(1, 1, 1)
+		logo.TextStrokeTransparency = 0.5
+		logo.Font = Enum.Font.GothamBlack
+		logo.TextScaled = true
+		logo.ZIndex = 2
+
+		TweenService:Create(logo, TweenInfo.new(1.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			TextColor3 = Color3.fromRGB(255, 85, 255),
+			TextStrokeTransparency = 0,
+			Size = UDim2.new(0, 400, 0, 100)
+		}):Play()
+
+		local credit = Instance.new("TextLabel", bg)
+		credit.Size = UDim2.new(1, 0, 0, 50)
+		credit.Position = UDim2.new(0, 0, 1, -60)
+		credit.BackgroundTransparency = 1
+		credit.Text = "MADE BY TH1nH Z"
+		credit.TextColor3 = Color3.fromRGB(255, 255, 255)
+		credit.Font = Enum.Font.Gotham
+		credit.TextTransparency = 1
+		credit.TextSize = 22
+		credit.TextStrokeTransparency = 1
+
+		TweenService:Create(credit, TweenInfo.new(2), {
+			TextTransparency = 0,
+			TextStrokeTransparency = 0.5
+		}):Play()
+
+		local function createIcon(assetId, radius, speed)
+			local icon = Instance.new("ImageLabel", bg)
+			icon.Image = assetId
+			icon.BackgroundTransparency = 1
+			icon.Size = UDim2.new(0, 40, 0, 40)
+			icon.ImageTransparency = 0.2
+
+			local angle = 0  
+			coroutine.wrap(function()  
+				while gui.Parent do  
+					local rad = math.rad(angle)  
+					icon.Position = UDim2.new(0.5, math.cos(rad) * radius, 0.5, math.sin(rad) * radius)  
+					angle = (angle + speed) % 360  
+					task.wait(0.03)  
+				end  
+			end)()
+		end
+
+		createIcon("rbxassetid://10764294838", 80, 2)
+		createIcon("rbxassetid://1095708", 100, 1.5)
+		createIcon("rbxassetid://6034881552", 120, 2.5)
+
+		local sound = Instance.new("Sound", game.SoundService)
+		sound.SoundId = "rbxassetid://9118823105"
+		sound.Volume = 1
+		sound:Play()
+
+		task.delay(5, function()
+			TweenService:Create(blur, TweenInfo.new(1), {Size = 0}):Play()
+			gui:Destroy()
+			sound:Destroy()
+
+			-- GỌI SCRIPT RAYFIELD CHÍNH
+			loadstring(game:HttpGet("https://pastebin.com/raw/ZQU4ykZP"))() -- <== Thay link này bằng script Rayfield FULL của bạn
+		end)
+
+	else
+		checkButton.Text = "❌ WRONG KEY"
+		wait(1.5)
+		checkButton.Text = "✅ CHECK KEY"
+	end
+end)
+--// Cinematic Intro: RAUSENIA HUB
+local TweenService = game:GetService("TweenService")
+local Lighting = game:GetService("Lighting")
+
+-- Blur nền
+local blur = Instance.new("BlurEffect", Lighting)
+blur.Size = 0
+TweenService:Create(blur, TweenInfo.new(1), {Size = 30}):Play()
+
+-- GUI Intro
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "RauseniaIntro"
+gui.IgnoreGuiInset = true
+gui.ResetOnSpawn = false
+
+-- Nền đen
+local bg = Instance.new("Frame", gui)
+bg.Size = UDim2.new(1, 0, 1, 0)
+bg.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+
+-- Logo chính
+local logo = Instance.new("TextLabel", bg)
+logo.Size = UDim2.new(0, 0, 0, 0)
+logo.Position = UDim2.new(0.5, -200, 0.5, -100)
+logo.BackgroundTransparency = 1
+logo.Text = "RAUSENIA HUB"
+logo.TextColor3 = Color3.new(1, 1, 1)
+logo.TextStrokeTransparency = 0.5
+logo.Font = Enum.Font.GothamBlack
+logo.TextScaled = true
+logo.ZIndex = 2
+
+-- Tạo hiệu ứng logo glow
+TweenService:Create(logo, TweenInfo.new(1.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+TextColor3 = Color3.fromRGB(255, 85, 255),
+TextStrokeTransparency = 0,
+Size = UDim2.new(0, 400, 0, 100)
+}):Play()
+
+-- MADE BY text
+local credit = Instance.new("TextLabel", bg)
+credit.Size = UDim2.new(1, 0, 0, 50)
+credit.Position = UDim2.new(0, 0, 1, -60)
+credit.BackgroundTransparency = 1
+credit.Text = "MADE BY TH1nH Z"
+credit.TextColor3 = Color3.fromRGB(255, 255, 255)
+credit.Font = Enum.Font.Gotham
+credit.TextTransparency = 1
+credit.TextSize = 22
+credit.TextStrokeTransparency = 1
+
+TweenService:Create(credit, TweenInfo.new(2), {
+TextTransparency = 0,
+TextStrokeTransparency = 0.5
+}):Play()
+
+-- Icon xoay xung quanh logo
+local function createIcon(assetId, radius, speed)
+local icon = Instance.new("ImageLabel", bg)
+icon.Image = assetId
+icon.BackgroundTransparency = 1
+icon.Size = UDim2.new(0, 40, 0, 40)
+icon.ImageTransparency = 0.2
+
+local angle = 0  
+coroutine.wrap(function()  
+	while gui.Parent do  
+		local rad = math.rad(angle)  
+		icon.Position = UDim2.new(0.5, math.cos(rad) * radius, 0.5, math.sin(rad) * radius)  
+		angle = (angle + speed) % 360  
+		task.wait(0.03)  
+	end  
+end)()
+
+end
+
+-- Tạo hiệu ứng các icon (vương miện, kim cương, lửa)
+createIcon("rbxassetid://10764294838", 80, 2) -- Crown
+createIcon("rbxassetid://1095708", 100, 1.5) -- Meteor/Star
+createIcon("rbxassetid://6034881552", 120, 2.5) -- Fire
+
+-- Âm thanh cinematic nhẹ
+local sound = Instance.new("Sound", game.SoundService)
+sound.SoundId = "rbxassetid://9118823105" -- Nhạc nhẹ cinematic
+sound.Volume = 1
+sound:Play()
+
+-- Tự động đóng intro sau 5 giây và chạy script chính
+task.delay(5, function()
+TweenService:Create(blur, TweenInfo.new(1), {Size = 0}):Play()
+gui:Destroy()
+sound:Destroy()
+
+-- ▶️ GỌI SCRIPT CHÍNH Ở ĐÂY  
+loadstring(game:HttpGet("https://your-script-url-here.com"))()
+
+end)
+-- 🌟 RAYFIELD UI LOADER
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+
+local Window = Rayfield:CreateWindow({
+Name = "RAUSENIA BEST STEAL ITEM / made by RAUSENIA",
+LoadingTitle = "RAUSENIA UI ✨",
+LoadingSubtitle = "by Th1nH Z 💻",
+ConfigurationSaving = {
+Enabled = false,
+},
+Discord = {
+Enabled = false,
+},
+KeySystem = false
+})
+
+-- 🔵 TAB 1: MAIN
+local MainTab = Window:CreateTab("🛠️ Main", 4483362458)
+
+-- Toggle: Steal Fast
+MainTab:CreateToggle({
+Name = "🚀 Steal fast",
+CurrentValue = false,
+Flag = "StealFast",
+Callback = function(val)
+Rayfield:Notify({
+Title = "SUCCESS✅️",
+Content = "Steal fast turned " .. (val and "ON" or "OFF")
+})
+end
+})
+
+-- Toggle: Trade Scam
+MainTab:CreateToggle({
+Name = "💸 Trade scam",
+CurrentValue = false,
+Flag = "TradeScam",
+Callback = function(val)
+Rayfield:Notify({
+Title = "SUCCESS✅️",
+Content = "Trade scam turned " .. (val and "ON" or "OFF")
+})
+end
+})
+
+-- Toggle: Speed Boost
+MainTab:CreateToggle({
+Name = "⚡ Speed boost",
+CurrentValue = false,
+Flag = "SpeedBoost",
+Callback = function(val)
+Rayfield:Notify({
+Title = "SUCCESS✅️",
+Content = "PLAYERS WILL GIFT CONTINUOUSLY✅️🤑"
+})
+end
+})
+
+-- Button: Leave Game
+MainTab:CreateButton({
+Name = "❌ Leave Game",
+Callback = function()
+game:Shutdown()
+end
+})
+
+-- Notice: Update Placeholder
+MainTab:CreateParagraph({
+Title = "⏳ Wait for next update...",
+Content = "Chức năng này đang được phát triển. Vui lòng quay lại sau!"
+})-- 🟨 TAB 2: STEAL
+local StealTab = Window:CreateTab("🛒 Steal", 4483362458)
+
+-- BUTTON: Menu Steal 3.0
+StealTab:CreateButton({
+Name = "🧠 Menu steal 3.0",
+Callback = function()
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "RAUSENIA_STEAL3_UI"
+
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 250, 0, 250)
+frame.Position = UDim2.new(0.5, -125, 0.5, -125)
+frame.BackgroundColor3 = Color3.fromRGB(28, 28, 30)
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+
+local title = Instance.new("TextLabel", frame)    
+title.Size = UDim2.new(1, 0, 0, 40)    
+title.BackgroundTransparency = 1    
+title.Text = "sl3epy ZzZ"    
+title.TextColor3 = Color3.new(1, 1, 1)    
+title.Font = Enum.Font.GothamBold    
+title.TextSize = 20    
+
+local credits = Instance.new("TextLabel", frame)    
+credits.Position = UDim2.new(0, 0, 1, -20)    
+credits.Size = UDim2.new(1, 0, 0, 20)    
+credits.BackgroundTransparency = 1    
+credits.Text = "made by: Sleepinthebed"    
+credits.TextColor3 = Color3.fromRGB(180, 180, 180)    
+credits.Font = Enum.Font.Gotham    
+credits.TextSize = 12    
+
+local buttonY = 50    
+local function createPrettyButton(text, callback)    
+    local button = Instance.new("TextButton", frame)    
+    button.Size = UDim2.new(0.9, 0, 0, 35)    
+    button.Position = UDim2.new(0.05, 0, 0, buttonY)    
+    button.BackgroundColor3 = Color3.fromRGB(45, 45, 50)    
+    button.TextColor3 = Color3.new(1, 1, 1)    
+    button.Font = Enum.Font.Gotham    
+    button.TextSize = 16    
+    button.Text = text    
+    button.BorderSizePixel = 0    
+    button.MouseButton1Click:Connect(callback)    
+    buttonY = buttonY + 45    
+end    
+
+createPrettyButton("🍎 Steal Fruit", function()    
+    local bar = Instance.new("Frame", gui)    
+    bar.Size = UDim2.new(0, 300, 0, 30)    
+    bar.Position = UDim2.new(0.5, -150, 0.9, 0)    
+    bar.BackgroundColor3 = Color3.fromRGB(40, 200, 100)    
+    local progress = Instance.new("Frame", bar)    
+    progress.BackgroundColor3 = Color3.fromRGB(0, 255, 0)    
+    progress.Size = UDim2.new(0, 0, 1, 0)    
+    progress:TweenSize(UDim2.new(1, 0, 1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Linear, 30, false)    
+    task.wait(30)    
+    game:GetService("TeleportService"):Teleport(game.PlaceId)    
+end)    
+
+createPrettyButton("🐾 Steal Pet", function()    
+    Rayfield:Notify({Title = "Running", Content = "Stealing pet for 30s..."})    
+    task.wait(30)    
+    game:GetService("TeleportService"):Teleport(game.PlaceId)    
+end)    
+
+createPrettyButton("❌ Leave", function()    
+    game:Shutdown()    
+end)
+
+end
+
+})
+
+-- PATCHED MENU STEAL 2.0
+StealTab:CreateButton({
+Name = "❌ Menu steal 2.0 [PATCHED]",
+Callback = function()
+Rayfield:Notify({
+Title = "PATCHED❌️",
+Content = "Menu 2.0 không hoạt động nữa"
+})
+end
+})
+
+-- PATCHED MENU STEAL 1.0
+StealTab:CreateButton({
+Name = "❌ Menu steal 1.0 [PATCHED]",
+Callback = function()
+Rayfield:Notify({
+Title = "PATCHED❌️",
+Content = "Menu 1.0 không hoạt động nữa"
+})
+end
+})
+
+-- TOGGLE: Steal ON/OFF
+StealTab:CreateToggle({
+Name = "🔁 Steal",
+CurrentValue = false,
+Callback = function(val)
+Rayfield:Notify({
+Title = "SUCCESS✅️",
+Content = "Steal turned " .. (val and "ON" or "OFF")
+})
+end
+})
+
+-- PARAGRAPH: Update message
+StealTab:CreateParagraph({
+Title = "⏳ Wait for next update...",
+Content = "Tính năng đang phát triển."
+})-- 🟩 TAB 3: DUPE
+local DupeTab = Window:CreateTab("🔁 Dupe", 4483362458)
+
+-- Hàm tạo UI dupe góc màn hình
+local function createDupeMiniUI(titleText, buttonText)
+local ui = Instance.new("ScreenGui", game.CoreGui)
+local frame = Instance.new("Frame", ui)
+frame.Size = UDim2.new(0, 200, 0, 100)
+frame.Position = UDim2.new(1, -220, 1, -120)
+frame.BackgroundColor3 = Color3.fromRGB(28, 28, 30)
+frame.BorderSizePixel = 0
+
+local label = Instance.new("TextLabel", frame)
+label.Size = UDim2.new(1, 0, 0, 30)
+label.Text = titleText
+label.Font = Enum.Font.Gotham
+label.TextSize = 14
+label.TextColor3 = Color3.fromRGB(255, 255, 255)
+label.BackgroundTransparency = 1
+
+local button = Instance.new("TextButton", frame)
+button.Size = UDim2.new(1, 0, 0, 50)
+button.Position = UDim2.new(0, 0, 0, 40)
+button.Text = buttonText
+button.Font = Enum.Font.GothamBold
+button.TextSize = 16
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+button.MouseButton1Click:Connect(function()
+Rayfield:Notify({Title = "SUCCESS✅️", Content = buttonText .. " Executed!"})
+end)
+
+end
+
+DupeTab:CreateButton({
+Name = "🌱 Menu dupe seed",
+Callback = function()
+createDupeMiniUI("made by: Th1nH Z", "DUPE SEED")
+end
+})
+
+DupeTab:CreateButton({
+Name = "🐾 Menu dupe pet",
+Callback = function()
+createDupeMiniUI("made by: Th1nH Z", "DUPE PET")
+end
+})
+
+DupeTab:CreateButton({
+Name = "🍎 Menu dupe fruit",
+Callback = function()
+createDupeMiniUI("made by: Th1nH Z", "DUPE FRUIT")
+end
+})
+
+DupeTab:CreateParagraph({
+Title = "ℹ️ Dupe only works when enabled below",
+Content = "Thông báo hiển thị, không có chức năng"
+})
+
+DupeTab:CreateToggle({
+Name = "🔃 Dupe",
+CurrentValue = false,
+Callback = function(val)
+Rayfield:Notify({Title = "SUCCESS✅️", Content = "Dupe toggled: " .. (val and "ON" or "OFF")})
+end
+})-- 🟪 TAB 4: SPAWM
+local SpawmTab = Window:CreateTab("🌟 Spawm", 4483362458)
+
+SpawmTab:CreateButton({
+Name = "💀 Menu spawm pet (Dark script)",
+Callback = function()
+local Spawner = loadstring(game:HttpGet("https://codeberg.org/GrowAFilipino/GrowAGarden/raw/branch/main/Spawner.lua"))()
+Spawner.Load()
+end
+})
+
+SpawmTab:CreateToggle({
+Name = "📍 Spawm pet place",
+CurrentValue = false,
+Callback = function(val)
+Rayfield:Notify({Title = "SUCCESS✅️", Content = "Pet place turned " .. (val and "ON" or "OFF")})
+end
+})
+
+SpawmTab:CreateToggle({
+Name = "🎬 Spawm pet real animation",
+CurrentValue = false,
+Callback = function(val)
+Rayfield:Notify({Title = "SUCCESS✅️", Content = "Real animation " .. (val and "ENABLED" or "DISABLED")})
+end
+})
+
+SpawmTab:CreateToggle({
+Name = "👀 Spawm pet others see",
+CurrentValue = false,
+Callback = function(val)
+Rayfield:Notify({Title = "SUCCESS✅️", Content = "Other players " .. (val and "CAN see" or "CANNOT see")})
+end
+})
+
+SpawmTab:CreateParagraph({
+Title = "⏳ Wait for next update...",
+Content = "Tính năng đang phát triển..."
+})-- 🟥 TAB 5: TELEPORT
+local TeleportTab = Window:CreateTab("🚀 Teleport", 4483362458)
+
+TeleportTab:CreateButton({
+Name = "🔄 Rejoin current server",
+Callback = function()
+game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
+end
+})
+
+TeleportTab:CreateButton({
+Name = "🌐 Hop server",
+Callback = function()
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId)
+end
+})
+
+local petToFind = ""
+TeleportTab:CreateInput({
+Name = "🐾 Pet",
+PlaceholderText = "Nhập tên pet cần tìm...",
+RemoveTextAfterFocusLost = false,
+Callback = function(input)
+petToFind = input
+Rayfield:Notify({Title = "Pet Set", Content = "Tìm pet: " .. petToFind})
+end
+})
+
+TeleportTab:CreateButton({
+Name = "🔍 Finder pet",
+Callback = function()
+if petToFind == "" then
+Rayfield:Notify({Title = "⚠️", Content = "Bạn chưa nhập tên pet!"})
+return
+end
+
+local bar = Instance.new("ScreenGui", game.CoreGui)
+local loading = Instance.new("Frame", bar)
+loading.Size = UDim2.new(0, 300, 0, 30)
+loading.Position = UDim2.new(0.5, -150, 0.5, 0)
+loading.BackgroundColor3 = Color3.fromRGB(50, 200, 255)
+local progress = Instance.new("Frame", loading)
+progress.Size = UDim2.new(0, 0, 1, 0)
+progress.BackgroundColor3 = Color3.fromRGB(0, 255, 255)
+progress:TweenSize(UDim2.new(1, 0, 1, 0), "Out", "Linear", 60)
+
+task.wait(60)    
+Rayfield:Notify({Title = "SUCCESS✅️", Content = "Found: " .. petToFind .. ". Hopping server!"})    
+
+while true do    
+    task.wait(5)
+
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId)
+end
+end
+})
+
+TeleportTab:CreateParagraph({
+Title = "⏳ Wait for next update...",
+Content = "Chức năng đang phát triển."
+})
+-- 🟦 TAB 6: TRADE SCAM
+local ScamTab = Window:CreateTab("💸 Trade Scam", 4483362458)
+
+-- Toggle: Trade Scam ON/OFF
+ScamTab:CreateToggle({
+Name = "🎯 Trade scam",
+CurrentValue = false,
+Callback = function(val)
+Rayfield:Notify({
+Title = "SUCCESS ✅️",
+Content = "Trade Scam turned " .. (val and "ON" or "OFF")
+})
+end
+})
+
+-- Input: Pet Name
+local petName = ""
+ScamTab:CreateInput({
+Name = "🐾 Pet name",
+PlaceholderText = "Nhập tên pet giả...",
+RemoveTextAfterFocusLost = false,
+Callback = function(input)
+petName = input
+Rayfield:Notify({
+Title = "SET ✅️",
+Content = "Tên pet đã nhập: " .. petName
+})
+end
+})
+
+-- Button: Spawn Fake Pet
+ScamTab:CreateButton({
+Name = "🧪 Spawn Fake Pet",
+Callback = function()
+if petName == "" then
+Rayfield:Notify({
+Title = "❌ ERROR",
+Content = "Bạn chưa nhập tên pet!"
+})
+return
+end
+
+local gui = Instance.new("ScreenGui", game.CoreGui)
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 300, 0, 50)
+frame.Position = UDim2.new(0.5, -150, 0.5, 0)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.BorderSizePixel = 0
+
+local percent = Instance.new("TextLabel", frame)    
+percent.Size = UDim2.new(1, 0, 1, 0)    
+percent.BackgroundTransparency = 1    
+percent.TextColor3 = Color3.new(1, 1, 1)    
+percent.Font = Enum.Font.GothamBold    
+percent.TextScaled = true    
+percent.Text = "IS USING GAME BUG 🔄 0%"    
+
+local bar = Instance.new("Frame", frame)    
+bar.Position = UDim2.new(0, 0, 1, 0)    
+bar.Size = UDim2.new(0, 0, 0, 5)    
+bar.BackgroundColor3 = Color3.fromRGB(0, 255, 0)    
+bar.BorderSizePixel = 0    
+
+spawn(function()    
+    for i = 1, 100 do    
+        percent.Text = "IS USING GAME BUG 🔄 " .. i .. "%"    
+        bar:TweenSize(UDim2.new(i/100, 0, 0, 5), "Out", "Linear", 0.05, true)    
+        wait(0.05)    
+    end    
+    frame:Destroy()    
+
+    local success = Instance.new("TextLabel", gui)    
+    success.Size = UDim2.new(0, 300, 0, 60)    
+    success.Position = UDim2.new(0.5, -150, 0.5, 0)    
+    success.BackgroundTransparency = 1    
+    success.TextColor3 = Color3.fromRGB(0, 255, 0)    
+    success.Font = Enum.Font.GothamBold    
+    success.TextScaled = true    
+    success.Text = "SUCCESS ✅️"    
+
+    wait(3)    
+    gui:Destroy()    
+end)
+
+end
+
+})
+
+-- Toggle: Menu Trade Scam (show sub UI)
+ScamTab:CreateToggle({
+Name = "📂 Menu Trade Scam",
+CurrentValue = false,
+Callback = function(val)
+if val then
+local scamGui = Instance.new("ScreenGui", game.CoreGui)
+scamGui.Name = "TradeScamUI"
+
+local frame = Instance.new("Frame", scamGui)
+frame.Size = UDim2.new(0, 250, 0, 160)
+frame.Position = UDim2.new(0.5, -125, 0.5, -80)
+frame.BackgroundColor3 = Color3.fromRGB(32, 32, 35)
+frame.Active = true
+frame.Draggable = true
+frame.BorderSizePixel = 0
+
+local uicorner = Instance.new("UICorner", frame)    
+    uicorner.CornerRadius = UDim.new(0, 12)    
+
+    local function createSubToggle(name)    
+        local btn = Instance.new("TextButton", frame)    
+        btn.Size = UDim2.new(0.9, 0, 0, 35)    
+        btn.Position = UDim2.new(0.05, 0, 0, (#frame:GetChildren() - 1) * 40)    
+        btn.BackgroundColor3 = Color3.fromRGB(60, 60, 65)    
+        btn.TextColor3 = Color3.fromRGB(255, 255, 255)    
+        btn.Font = Enum.Font.Gotham    
+        btn.TextScaled = true    
+        btn.Text = name .. ": OFF"    
+        local state = false    
+        btn.MouseButton1Click:Connect(function()    
+            state = not state    
+            btn.Text = name .. ": " .. (state and "ON" or "OFF")    
+        end)    
+    end    
+
+    createSubToggle("🧊 Freeze trade")    
+    createSubToggle("🎁 Fake pet can gift")    
+
+    local leaveBtn = Instance.new("TextButton", frame)    
+    leaveBtn.Size = UDim2.new(0.9, 0, 0, 35)    
+    leaveBtn.Position = UDim2.new(0.05, 0, 0, 120)    
+    leaveBtn.BackgroundColor3 = Color3.fromRGB(150, 0, 0)    
+    leaveBtn.TextColor3 = Color3.new(1, 1, 1)    
+    leaveBtn.Font = Enum.Font.GothamBold    
+    leaveBtn.TextScaled = true    
+    leaveBtn.Text = "❌ Leave"    
+    leaveBtn.MouseButton1Click:Connect(function()    
+        game.Players.LocalPlayer:Kick("REJOIN")    
+    end)    
+else    
+    if game.CoreGui:FindFirstChild("TradeScamUI") then    
+        game.CoreGui.TradeScamUI:Destroy()    
+    end    
+end
+
+end
+
+})
+
+-- Disabled button
+ScamTab:CreateButton({
+Name = "⏳ Wait for next update...",
+Callback = function() end,
+Interactable = false
+})
+
