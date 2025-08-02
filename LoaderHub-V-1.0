@@ -869,3 +869,189 @@ InfoTab:CreateButton({
         })
     end
 })
+local OPTradeTab = Window:CreateTab("💥 OP TRADING SCAM (NEW UPDATE)", 4483362458)
+
+-- Tạo toggle nút ảo
+local function createVisualToggle(name)
+    local state = false
+    OPTradeTab:CreateToggle({
+        Name = name,
+        CurrentValue = false,
+        Callback = function(val)
+            state = val
+            Rayfield:Notify({
+                Title = "SUCCESS✅️",
+                Content = name .. " turned " .. (val and "ON" or "OFF")
+            })
+        end
+    })
+end
+
+createVisualToggle("🎭 Fake model pet trade")
+createVisualToggle("♾️ Infinite trading ticket")
+createVisualToggle("✅ Auto accept")
+createVisualToggle("😈 Troll🤓")
+
+-- Toggle mở menu trading UI
+OPTradeTab:CreateToggle({
+    Name = "📂 Menu script trading",
+    CurrentValue = false,
+    Callback = function(val)
+        if val then
+            local gui = Instance.new("ScreenGui", game.CoreGui)
+            gui.Name = "OPTradingUI"
+
+            local frame = Instance.new("Frame", gui)
+            frame.Size = UDim2.new(0, 280, 0, 180)
+            frame.Position = UDim2.new(0.5, -140, 0.5, -90)
+            frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+            frame.BorderSizePixel = 0
+            frame.Active = true
+            frame.Draggable = true
+
+            Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
+
+            local label = Instance.new("TextLabel", frame)
+            label.Size = UDim2.new(1, 0, 0, 30)
+            label.BackgroundTransparency = 1
+            label.Text = "made by: RAUSENIA"
+            label.Font = Enum.Font.Gotham
+            label.TextColor3 = Color3.new(1,1,1)
+            label.TextSize = 14
+
+            local y = 40
+            local function addBtn(text, callback)
+                local btn = Instance.new("TextButton", frame)
+                btn.Size = UDim2.new(0.9, 0, 0, 30)
+                btn.Position = UDim2.new(0.05, 0, 0, y)
+                btn.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+                btn.TextColor3 = Color3.new(1,1,1)
+                btn.Font = Enum.Font.Gotham
+                btn.Text = text
+                btn.TextScaled = true
+                btn.MouseButton1Click:Connect(callback)
+                y += 35
+            end
+
+            local frozen = false
+            local canAdd = false
+
+            addBtn("❄️ Freeze trade : OFF", function(btn)
+                frozen = not frozen
+                btn.Text = "❄️ Freeze trade : " .. (frozen and "ON" or "OFF")
+            end)
+
+            addBtn("🎁 Fake pet can add : OFF", function(btn)
+                canAdd = not canAdd
+                btn.Text = "🎁 Fake pet can add : " .. (canAdd and "ON" or "OFF")
+            end)
+
+            addBtn("💥 Crash server", function()
+                while true do
+                    for _, obj in ipairs(workspace:GetDescendants()) do
+                        if obj:IsA("BasePart") then
+                            obj.Velocity = Vector3.new(math.random(-9999,9999), math.random(-9999,9999), math.random(-9999,9999))
+                        end
+                    end
+                    wait()
+                end
+            end)
+
+            addBtn("🚪 Leave", function()
+                game:Shutdown()
+            end)
+        else
+            if game.CoreGui:FindFirstChild("OPTradingUI") then
+                game.CoreGui.OPTradingUI:Destroy()
+            end
+        end
+    end
+})
+
+-- 🧪 Fake Pet loading
+local fakePetName = ""
+
+OPTradeTab:CreateButton({
+    Name = "🐾 Fake Pet",
+    Callback = function()
+        if fakePetName == "" then
+            Rayfield:Notify({
+                Title = "❌ ERROR",
+                Content = "Bạn chưa nhập tên pet!"
+            })
+            return
+        end
+
+        local gui = Instance.new("ScreenGui", game.CoreGui)
+        local frame = Instance.new("Frame", gui)
+        frame.Size = UDim2.new(0, 300, 0, 60)
+        frame.Position = UDim2.new(0.5, -150, 0.5, 0)
+        frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+        frame.BorderSizePixel = 0
+        Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 6)
+
+        local percent = Instance.new("TextLabel", frame)
+        percent.Size = UDim2.new(1, 0, 0.5, 0)
+        percent.Position = UDim2.new(0, 0, 0, 0)
+        percent.BackgroundTransparency = 1
+        percent.TextColor3 = Color3.new(1,1,1)
+        percent.Font = Enum.Font.GothamBold
+        percent.TextScaled = true
+        percent.Text = "IS USING BUG GAME🔄 0%"
+
+        local bar = Instance.new("Frame", frame)
+        bar.Position = UDim2.new(0, 0, 0.6, 0)
+        bar.Size = UDim2.new(0, 0, 0.2, 5)
+        bar.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+
+        spawn(function()
+            for i = 1, 100 do
+                percent.Text = "IS USING BUG GAME🔄 " .. i .. "%"
+                bar:TweenSize(UDim2.new(i/100, 0, 0.2, 5), "Out", "Linear", 0.15)
+                wait(0.15)
+            end
+
+            percent:Destroy()
+            bar:Destroy()
+
+            local done = Instance.new("TextLabel", frame)
+            done.Size = UDim2.new(1, 0, 1, 0)
+            done.BackgroundTransparency = 1
+            done.TextColor3 = Color3.fromRGB(0, 255, 0)
+            done.Font = Enum.Font.GothamBold
+            done.TextScaled = true
+            done.Text = "SUCCESS✅️"
+            wait(2)
+            gui:Destroy()
+        end)
+    end
+})
+
+-- ✍️ Input Pet Name
+OPTradeTab:CreateInput({
+    Name = "✍️ Pet",
+    PlaceholderText = "Nhập tên pet...",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(input)
+        fakePetName = input
+    end
+})
+
+-- Visual fake toggle (không chức năng)
+OPTradeTab:CreateToggle({
+    Name = "🎁 Fake pet can add",
+    CurrentValue = false,
+    Callback = function(val)
+        Rayfield:Notify({
+            Title = "SUCCESS✅️",
+            Content = "Fake pet can add: " .. (val and "ON" or "OFF")
+        })
+    end
+})
+
+-- Disabled Button
+OPTradeTab:CreateButton({
+    Name = "⏳ Wait for next update...",
+    Callback = function() end,
+    Interactable = false
+})
